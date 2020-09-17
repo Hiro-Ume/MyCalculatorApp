@@ -2,8 +2,8 @@
 //  ViewController.swift
 //  MyCalculatorApp
 //
-//  Created by 梅川浩明 on 2020/09/08.
-//  Copyright © 2020 Hiroaki Umekawa. All rights reserved.
+//  Created by Hiro-Ume on 2020/09/08.
+//  Copyright © 2020 Hiro Ume. All rights reserved.
 //
 
 import UIKit
