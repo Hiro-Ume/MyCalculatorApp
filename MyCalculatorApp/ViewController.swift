@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     
     enum CalculateStatus {
-        case none, plus, minus, multiplication, division
+        case none, plus, minus, multiplication, division, percentage
     }
        
     var firstNumber = ""
@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     var calculateStatus: CalculateStatus = .none
     
     let numbers = [
-        ["C", "%", "$", "÷"],
+        ["C", "K", "%", "÷"],
         ["7", "8", "9", "×"],
         ["4", "5", "6", "-"],
         ["1", "2", "3", "+"],
@@ -103,7 +103,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         numbers[indexPath.section][indexPath.row].forEach{(numberString) in
             if "0"..."9" ~= numberString || numberString.description == "." {
                 cell.numberLabel.backgroundColor = .darkGray
-            } else if numberString == "C" || numberString == "%" || numberString == "$"{
+            } else if numberString == "C" || numberString == "K" || numberString == "%"{
                 cell.numberLabel.backgroundColor = UIColor.init(white: 1, alpha: 0.7)
                 cell.numberLabel.textColor = .black
             }
@@ -120,9 +120,8 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         switch calculateStatus {
         case .none:
             handleFirstNumberSelected(number: number)
-        case .plus, .minus, .multiplication, .division:
+        case .plus, .minus, .multiplication, .division, .percentage:
             handleSecondNumberSelected(number: number)
-            
         }
     }
     
@@ -132,13 +131,28 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
             firstNumber += number
             numberLabel.text = firstNumber
             //はじめに0が追加されないようにする
-            if firstNumber.hasPrefix("0"){
+            //before　hasprefixは文字列が含まれていればtrueを返す
+//            if firstNumber.hasPrefix("0"){
+//                firstNumber = ""
+//            }
+            //after
+            if firstNumber == "0"{
                 firstNumber = ""
             }
         case ".":
-            if !confirmIncludeDesimaklPoint(numberString: firstNumber){
+            //小数点を打ったときにまず何も文字列が入っていなければ0を入れる
+            if firstNumber == ""{
+                firstNumber = "0"
+            }
+            //小数点が入っていないまたは数字が0のときは小数点を追加する
+            if !confirmIncludeDesimalPoint(numberString: firstNumber){
                 firstNumber += number
                 numberLabel.text = firstNumber
+            }
+        case "%":
+            if firstNumber != ""{
+            calculateStatus = .percentage
+            calculateResultNumber()
             }
         case "+":
             calculateStatus = .plus
@@ -162,14 +176,21 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
             secondNumber += number
             numberLabel.text = secondNumber
             
-            if secondNumber.hasPrefix("0"){
+            if secondNumber == "0"{
                 secondNumber = ""
             }
         case ".":
-            if !confirmIncludeDesimaklPoint(numberString: secondNumber){
+            if secondNumber == ""{
+                secondNumber = "0"
+            }
+            
+            if !confirmIncludeDesimalPoint(numberString: secondNumber){
                 secondNumber += number
                 numberLabel.text = secondNumber
             }
+        case "%":
+            calculateStatus = .percentage
+            calculateResultNumber()
         case "=":
            calculateResultNumber()
             
@@ -195,6 +216,9 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
             resultString = String(firstNum * secondNum)
         case .division:
             resultString = String(firstNum / secondNum)
+        //％の計算(下記のままだとfirstNumの値しか取れないのでsecondNumの計算ができない）
+        case .percentage:
+            resultString = String(firstNum * 0.01)
         default:
             break
         }
@@ -211,7 +235,9 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         calculateStatus = .none
     }
     
-    private func confirmIncludeDesimaklPoint(numberString: String) -> Bool{
+    
+    //小数点が入っていないまたは数字が0のときはtrueを返す
+    private func confirmIncludeDesimalPoint(numberString: String) -> Bool{
         if numberString.range(of: ".") != nil || numberString.count == 0{
             return true
         } else{
