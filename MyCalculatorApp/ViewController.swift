@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     var calculateStatus: CalculateStatus = .none
     
     let numbers = [
-        ["C", "K", "%", "÷"],
+        ["C", "M", "%", "÷"],
         ["7", "8", "9", "×"],
         ["4", "5", "6", "-"],
         ["1", "2", "3", "+"],
@@ -29,6 +29,7 @@ class ViewController: UIViewController {
     let cellID = "cellID"
     
     @IBOutlet weak var calculatorCollectionView: UICollectionView!
+    @IBOutlet weak var memoryLabel: UILabel!
     @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var calculatorHeightConstrait: NSLayoutConstraint!
     
@@ -49,10 +50,17 @@ class ViewController: UIViewController {
         calculatorCollectionView.contentInset = .init(top: 0, left: 14, bottom: 0, right: 14)
         
         numberLabel.text = "0"
+        memoryLabel.text = "0"
     }
     
     //クリアを押したときの処理
     func clear(){
+        if firstNumber == "" &&
+        secondNumber == "" &&
+        numberLabel.text == "0" &&
+        calculateStatus == .none {
+            memoryLabel.text = "0"
+        }
         firstNumber = ""
         secondNumber = ""
         numberLabel.text = "0"
@@ -103,7 +111,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         numbers[indexPath.section][indexPath.row].forEach{(numberString) in
             if "0"..."9" ~= numberString || numberString.description == "." {
                 cell.numberLabel.backgroundColor = .darkGray
-            } else if numberString == "C" || numberString == "K" || numberString == "%"{
+            } else if numberString == "C" || numberString == "M" || numberString == "%"{
                 cell.numberLabel.backgroundColor = UIColor.init(white: 1, alpha: 0.7)
                 cell.numberLabel.textColor = .black
             }
@@ -154,6 +162,8 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
             calculateStatus = .percentage
             calculateResultNumber()
             }
+        case "M":
+            memoryLabel.text = firstNumber
         case "+":
             calculateStatus = .plus
         case "-":
@@ -191,9 +201,10 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         case "%":
             calculateStatus = .percentage
             calculateResultNumber()
+        case "M":
+            memoryLabel.text = secondNumber
         case "=":
            calculateResultNumber()
-            
         case "C":
             clear()
         default:
@@ -219,6 +230,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         //％の計算(下記のままだとfirstNumの値しか取れないのでsecondNumの計算ができない）
         case .percentage:
             resultString = String(firstNum * 0.01)
+        
         default:
             break
         }

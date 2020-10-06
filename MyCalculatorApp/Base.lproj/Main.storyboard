@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,8 +19,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Fxg-7H-jXO">
-                                <rect key="frame" x="0.0" y="462" width="414" height="400"/>
-                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="0.0" y="334" width="414" height="528"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="400" id="ziZ-hh-Y7L"/>
                                 </constraints>
@@ -40,7 +42,7 @@
                                 </cells>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123456" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Id4-AB-PCW">
-                                <rect key="frame" x="0.0" y="402" width="401" height="60"/>
+                                <rect key="frame" x="0.0" y="274" width="401" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="FWe-Ap-IQI"/>
                                 </constraints>
@@ -48,21 +50,36 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qcP-ou-28z">
+                                <rect key="frame" x="2" y="184" width="399" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="401" id="c1h-hf-iiz"/>
+                                    <constraint firstAttribute="height" constant="60" id="mE7-hn-jnh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="75"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qcP-ou-28z" secondAttribute="trailing" constant="13" id="0Ko-pa-YXK"/>
                             <constraint firstItem="Id4-AB-PCW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9lu-6c-N0G"/>
                             <constraint firstItem="Fxg-7H-jXO" firstAttribute="top" secondItem="Id4-AB-PCW" secondAttribute="bottom" id="9sB-F6-giw"/>
                             <constraint firstItem="Fxg-7H-jXO" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Dby-br-ZdE"/>
                             <constraint firstItem="Id4-AB-PCW" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-13" id="O0j-Iz-IB7"/>
                             <constraint firstItem="Fxg-7H-jXO" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Xtr-ud-cmT"/>
+                            <constraint firstItem="qcP-ou-28z" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="2" id="kCN-Tg-Mij"/>
                             <constraint firstItem="Fxg-7H-jXO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="smv-DT-bbg"/>
+                            <constraint firstItem="Id4-AB-PCW" firstAttribute="top" secondItem="qcP-ou-28z" secondAttribute="bottom" constant="30" id="tcF-Rx-ePm"/>
+                            <constraint firstItem="qcP-ou-28z" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="140" id="wwa-wJ-DiI"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="calculatorCollectionView" destination="Fxg-7H-jXO" id="ZdP-Tq-rgS"/>
                         <outlet property="calculatorHeightConstrait" destination="ziZ-hh-Y7L" id="5rG-Ht-H7d"/>
+                        <outlet property="memoryLabel" destination="qcP-ou-28z" id="Sa5-yW-5h1"/>
                         <outlet property="numberLabel" destination="Id4-AB-PCW" id="LhJ-Wd-Sw3"/>
                     </connections>
                 </viewController>
@@ -71,4 +88,9 @@
             <point key="canvasLocation" x="-57.971014492753625" y="117.85714285714285"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>
